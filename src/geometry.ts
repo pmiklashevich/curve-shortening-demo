@@ -4,7 +4,7 @@
 
 // These helper functions perform simple operations on 2D vectors
 // represented as javascript arrays.
-// For example, |2u+v+w|^2 would be written 
+// For example, |2u+v+w|^2 would be written
 // squaredLength(add(scale(u,2),v,w)).
 
 import { CircularList, Neighbourhood } from './CircularList';
@@ -50,11 +50,15 @@ export class ScalarFunction extends CircularList<number> {
     min() { return Math.min(...this._data); }
 }
 
-export function curvature(x : Neighbourhood<Point>) : number {
+export function curvatureSign(x : Neighbourhood<Point>) : number {
     const twiceDisplacement = subtract(x(1),x(-1));
     const laplacian = add(x(1), x(-1), scale(x(0),-2));
     const dr2 = squaredLength(subtract(x(1),x(-1))) * 0.25;
-    return Math.abs(0.5 * cross(twiceDisplacement, laplacian) * dr2**(-3/2));
+    return 0.5 * cross(twiceDisplacement, laplacian) * dr2**(-3/2);
+}
+
+export function curvature(x : Neighbourhood<Point>) : number {
+    return Math.abs(curvatureSign(x));
 }
 
 export class Curve extends CircularList<Point> {
@@ -67,12 +71,12 @@ export class Curve extends CircularList<Point> {
     // Computes (abs value of signed) area via the shoelace formula
     area() : number {
         const n = this.length;
-        
+
         let sum0 = 0;
         for(let i = 0; i < n; ++i) {
             sum0 += this.get(i)[0] * this.get(i+1)[1];
         }
-        
+
         let sum1 = 0;
         for(let i = 0; i < n; ++i) {
             sum1 += this.get(i+1)[0] * this.get(i)[1];

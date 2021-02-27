@@ -3,12 +3,18 @@
 // See COPYING for more details.
 
 import { LocalFunction } from './CircularList';
-import { Point, add, subtract, scale, squaredLength, equals, 
-    Curve, ScalarFunction } from './geometry';
+import { Point, add, subtract, scale, squaredLength, equals,
+    Curve, ScalarFunction, curvatureSign } from './geometry';
 
 // Forward Euler approximation to CSF with tangential reparametrization
 export function reparametrizedCSF(dt : number) : LocalFunction<Point, Point>{
     return (point, index, x) => {
+
+        // Let's ignore negative curvature to obtain convex hull
+        if (curvatureSign(x) < 0) {
+            return point;
+        }
+
         let laplacian = add(x(1), x(-1), scale(x(0),-2));
         let dr2 = squaredLength(subtract(x(1),x(-1))) * 0.25;
         return add(x(0), scale(laplacian, dt / dr2));
