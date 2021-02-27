@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/acarapetis/curve-shortening-demo.git"
+    "url": "git+https://github.com/pmiklashevich/curve-shortening-demo.git"
   },
   "keywords": [
     "mathematics",
@@ -45,7 +45,7 @@
   "author": "anthony.carapetis@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/acarapetis/curve-shortening-demo/issues"
+    "url": "https://github.com/pmiklashevich/curve-shortening-demo/issues"
   },
-  "homepage": "https://github.com/acarapetis/curve-shortening-demo#readme"
+  "homepage": "https://github.com/pmiklashevich/curve-shortening-demo#readme"
 }
